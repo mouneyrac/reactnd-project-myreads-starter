@@ -6,18 +6,18 @@ import "../App.css";
 class BookDetails extends Component {
   static propTypes = {
     title: PropTypes.string.isRequired,
-    author: PropTypes.string.isRequired
+    authors: PropTypes.array.isRequired
   };
 
   render() {
-    const { title, author } = this.props;
+    const { title, authors } = this.props;
     return (
       <div>
         <div className="book-title">
           {title}
         </div>
         <div className="book-authors">
-          {author}
+          {authors.join(", ")}
         </div>
       </div>
     );

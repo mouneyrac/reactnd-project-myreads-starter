@@ -24,7 +24,7 @@ class BookList extends Component {
                 bookwidth={128}
                 bookimg={book.imageLinks.thumbnail}
                 title={book.title}
-                author={book.authors.join(", ")}
+                authors={book.authors}
                 currentShelf={book.shelf}
                 onChangeShelf={onChangeShelf}
               />
