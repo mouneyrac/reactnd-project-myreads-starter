@@ -18,12 +18,19 @@ class BooksApp extends Component {
     });
   }
 
-  updateBook = book => {
+  changeBookShelf = (bookid, value) => {
     this.setState(state => ({
-      mybooks: state.mybooks.map(
-        mybook => (mybook.id === book.id ? book : mybook)
-      )
+      mybooks: state.mybooks.map(mybook => {
+        if (mybook.id === bookid) {
+          mybook.shelf = value;
+        }
+        return mybook;
+      })
     }));
+
+    // TODO
+    // Make API call to update the DB.
+    // Think about the case "None" - is it a Delete?
   };
 
   render() {
@@ -35,9 +42,8 @@ class BooksApp extends Component {
           render={() =>
             <Myreads
               mybooks={this.state.mybooks}
-              onUpdateBook={book => {
-                this.updateBook(book);
-                // history.push("/");
+              onChangeShelf={(bookid, value) => {
+                this.changeBookShelf(bookid, value);
               }}
             />}
         />
