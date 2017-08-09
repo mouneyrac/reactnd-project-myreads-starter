@@ -24,6 +24,7 @@ class SearchInput extends Component {
                   you don't find a specific author or title. Every search is limited by search terms.
                 */}
         <input
+          autoFocus
           value={this.state.query}
           type="text"
           placeholder="Search by title or author"

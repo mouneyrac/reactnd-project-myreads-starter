@@ -18,25 +18,33 @@ class Search extends Component {
   };
 
   updateQuery(query) {
-    BooksAPI.search(query).then(querybooks => {
-      // If no array return empty the results.
-      // TODO: check if it is really empty and not an error.
-      //       But it is not the purpose as we are using BooksAPI.
-      if (!Array.isArray(querybooks)) {
-        querybooks = [];
-      }
+    // I could not get a nice and fast UX with debounce, the UX was sugglish.
+    // So as I don't have too much time to find the perfect solution,
+    // I decided to use an ugly trick.
+    // I slow down the execution when it is an empty query.
+    const timeout = query ? 0 : 800;
 
-      // Check if any of the query books are in mybooks,
-      // if yes return the mybook one (so search knows about the shelf).
-      const myquerybooks = querybooks.map(querybook => {
-        const myquerybook = this.props.mybooks.find(mybook => {
-          return mybook.id === querybook.id;
+    setTimeout(() => {
+      BooksAPI.search(query).then(querybooks => {
+        // If no array return empty the results.
+        // TODO: check if it is really empty and not an error.
+        //       But it is not the purpose as we are using BooksAPI.
+        if (!Array.isArray(querybooks)) {
+          querybooks = [];
+        }
+
+        // Check if any of the query books are in mybooks,
+        // if yes return the mybook one (so search knows about the shelf).
+        const myquerybooks = querybooks.map(querybook => {
+          const myquerybook = this.props.mybooks.find(mybook => {
+            return mybook.id === querybook.id;
+          });
+          return myquerybook ? myquerybook : querybook;
         });
-        return myquerybook ? myquerybook : querybook;
-      });
 
-      this.setState({ query: query, querybooks: myquerybooks });
-    });
+        this.setState({ query: query, querybooks: myquerybooks });
+      });
+    }, timeout);
   }
 
   render() {
