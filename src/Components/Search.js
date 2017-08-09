@@ -1,41 +1,48 @@
 //@flow
 import React, { Component } from "react";
+import SearchBar from "./SearchBar";
+import BookList from "./BookList";
+import * as BooksAPI from "../BooksAPI";
 import PropTypes from "prop-types";
 import "../App.css";
 
 class Search extends Component {
   static propTypes = {
-    onUpdateBook: PropTypes.func.isRequired
+    onChangeShelf: PropTypes.func.isRequired
   };
 
   state = {
-    query: ""
+    query: "",
+    querybooks: []
   };
+
+  updateQuery(query) {
+    BooksAPI.search(query).then(querybooks => {
+      // If no array return empty the results.
+      // TODO: check if it is really empty and not an error.
+      //       But it is not the purpose as we are using BooksAPI.
+      if (!Array.isArray(querybooks)) {
+        querybooks = [];
+      }
+
+      this.setState({ query, querybooks });
+    });
+  }
 
   render() {
     return (
       <div className="search-books">
-        <div className="search-books-bar">
-          <a
-            className="close-search"
-            onClick={() => this.setState({ showSearchPage: false })}
-          >
-            Close
-          </a>
-          <div className="search-books-input-wrapper">
-            {/*
-                  NOTES: The search from BooksAPI is limited to a particular set of search terms.
-                  You can find these search terms here:
-                  https://github.com/udacity/reactnd-project-myreads-starter/blob/master/SEARCH_TERMS.md
+        <SearchBar
+          onChangeQuery={query => {
+            this.updateQuery(query);
+          }}
+        />
 
-                  However, remember that the BooksAPI.search method DOES search by title or author. So, don't worry if
-                  you don't find a specific author or title. Every search is limited by search terms.
-                */}
-            <input type="text" placeholder="Search by title or author" />
-          </div>
-        </div>
         <div className="search-books-results">
-          <ol className="books-grid" />
+          <BookList
+            books={this.state.querybooks}
+            onChangeShelf={this.props.onChangeShelf}
+          />
         </div>
       </div>
     );

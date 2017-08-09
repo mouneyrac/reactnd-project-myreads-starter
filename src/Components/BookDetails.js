@@ -6,7 +6,7 @@ import "../App.css";
 class BookDetails extends Component {
   static propTypes = {
     title: PropTypes.string.isRequired,
-    authors: PropTypes.array.isRequired
+    authors: PropTypes.array
   };
 
   render() {
@@ -17,7 +17,7 @@ class BookDetails extends Component {
           {title}
         </div>
         <div className="book-authors">
-          {authors.join(", ")}
+          {typeof authors === "undefined" ? "" : authors.join(", ")}
         </div>
       </div>
     );

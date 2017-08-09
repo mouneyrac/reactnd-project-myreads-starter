@@ -11,7 +11,7 @@ class ShelfChangerButton extends Component {
   };
 
   state = {
-    currentShelf: ""
+    currentShelf: "none"
   };
 
   componentDidMount() {

@@ -13,7 +13,7 @@ class Book extends Component {
     bookheight: PropTypes.number.isRequired,
     currentShelf: PropTypes.string,
     title: PropTypes.string.isRequired,
-    authors: PropTypes.array.isRequired,
+    authors: PropTypes.array,
     onChangeShelf: PropTypes.func.isRequired
   };
 

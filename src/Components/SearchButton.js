@@ -1,12 +1,13 @@
 //@flow
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import "../App.css";
 
 class SearchButton extends Component {
   render() {
     return (
       <div className="open-search">
-        <a onClick={() => {}}>Add a book</a>
+        <Link to="/search">Add a book</Link>
       </div>
     );
   }
