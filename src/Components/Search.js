@@ -18,13 +18,7 @@ class Search extends Component {
   };
 
   updateQuery(query) {
-    // I could not get a nice and fast UX with debounce, the UX was sugglish.
-    // So as I don't have too much time to find the perfect solution,
-    // I decided to use an ugly trick.
-    // I slow down the execution when it is an empty query.
-    const timeout = query ? 0 : 800;
-
-    setTimeout(() => {
+    if (query) {
       BooksAPI.search(query).then(querybooks => {
         // If no array return empty the results.
         // TODO: check if it is really empty and not an error.
@@ -42,9 +36,24 @@ class Search extends Component {
           return myquerybook ? myquerybook : querybook;
         });
 
-        this.setState({ query: query, querybooks: myquerybooks });
+        // delay empty result as they arrive faster.
+        // still ugly, I think it works for the API but it would definitely
+        // not work for some API.
+        const timeout = myquerybooks.length ? 0 : 400;
+        setTimeout(() => {
+          console.log(myquerybooks.length);
+          this.setState({ query: query, querybooks: myquerybooks });
+        }, timeout);
       });
-    }, timeout);
+    } else {
+      // I could not get a nice and fast UX with debounce, the UX was sugglish.
+      // So as I don't have too much time to find the perfect solution,
+      // I decided to use an ugly trick.
+      // I slow down the execution when it is an empty query.
+      setTimeout(() => {
+        this.setState({ query: "", querybooks: [] });
+      }, 800);
+    }
   }
 
   render() {
