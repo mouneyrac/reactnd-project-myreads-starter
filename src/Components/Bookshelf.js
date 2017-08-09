@@ -2,7 +2,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import BookList from "./BookList";
-import CategoryHeader from "./CategoryHeader";
+import ShelfHeader from "./ShelfHeader";
 import "../App.css";
 
 class Bookshelf extends Component {
@@ -16,7 +16,7 @@ class Bookshelf extends Component {
     const { title, books, onChangeShelf } = this.props;
     return (
       <div className="bookshelf">
-        <CategoryHeader title={title} />
+        <ShelfHeader title={title} />
         <BookList books={books} onChangeShelf={onChangeShelf} />
       </div>
     );

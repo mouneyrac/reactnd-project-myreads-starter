@@ -3,7 +3,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import "../App.css";
 
-class CategoryHeader extends Component {
+class ShelfHeader extends Component {
   static propTypes = {
     title: PropTypes.string.isRequired
   };
@@ -18,4 +18,4 @@ class CategoryHeader extends Component {
   }
 }
 
-export default CategoryHeader;
+export default ShelfHeader;
