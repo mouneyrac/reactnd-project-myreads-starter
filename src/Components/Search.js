@@ -8,7 +8,8 @@ import "../App.css";
 
 class Search extends Component {
   static propTypes = {
-    onChangeShelf: PropTypes.func.isRequired
+    onChangeShelf: PropTypes.func.isRequired,
+    mybooks: PropTypes.array.isRequired
   };
 
   state = {
@@ -25,7 +26,16 @@ class Search extends Component {
         querybooks = [];
       }
 
-      this.setState({ query, querybooks });
+      // Check if any of the query books are in mybooks,
+      // if yes return the mybook one (so search knows about the shelf).
+      const myquerybooks = querybooks.map(querybook => {
+        const myquerybook = this.props.mybooks.find(mybook => {
+          return mybook.id === querybook.id;
+        });
+        return myquerybook ? myquerybook : querybook;
+      });
+
+      this.setState({ query: query, querybooks: myquerybooks });
     });
   }
 

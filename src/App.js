@@ -25,8 +25,8 @@ class BooksApp extends Component {
 
     let mybooks;
 
-    // Check if we have the book.
     if (bookexist) {
+      // Move a book to another shelf.
       mybooks = this.state.mybooks.map(mybook => {
         if (mybook.id === bookid) {
           mybook.shelf = value;
@@ -39,22 +39,17 @@ class BooksApp extends Component {
         mybooks: mybooks
       }));
     } else {
+      // Add a new book to one of our shelf.
       BooksAPI.get(bookid).then(book => {
         book.shelf = value;
         this.setState({ mybooks: this.state.mybooks.concat([book]) });
         this.updateRemoteBook(book);
       });
     }
-
-    // TODO
-    // Make API call to update the DB.
-    // Think about the case "None" - is it a Delete?
   };
 
   updateRemoteBook(book) {
-    BooksAPI.update(book, book.shelf).then(book => {
-      console.log(book);
-    });
+    BooksAPI.update(book, book.shelf);
   }
 
   render() {
@@ -75,6 +70,7 @@ class BooksApp extends Component {
           path="/search"
           render={({ history }) =>
             <Search
+              mybooks={this.state.mybooks}
               onChangeShelf={(bookid, value) => {
                 this.changeBookShelf(bookid, value);
               }}
