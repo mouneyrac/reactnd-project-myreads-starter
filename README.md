@@ -2,6 +2,12 @@ This is my personal submission for the final assessment project for Udacity's Re
 
 The goal of this project is to create the MyReads app. See details in the Udacity course.
 
+## Installation
+
+npm install
+
+npm start
+
 ## Backend Server
 
 To simplify your development process, Udacity provided a backend server for me to develop against. The provided file [`BooksAPI.js`](src/BooksAPI.js) contains the methods the project need to perform necessary operations on the backend:
