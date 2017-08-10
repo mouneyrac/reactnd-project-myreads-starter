@@ -19,6 +19,40 @@ class BooksApp extends Component {
   }
 
   changeBookShelf = (bookid, value) => {
+    /* Reviewer solution:
+
+    Check out this alternative solution:
+
+    handleBookShelfChange = (book, shelf) => {
+        if (book.shelf !== shelf) {
+          BooksAPI.update(book, shelf).then(() => {
+            book.shelf = shelf
+
+            // Filter out the book and append it to the end of the list
+            // so it appears at the end of whatever shelf it was added to.
+            this.setState(state => ({
+              books: state.books.filter(b => b.id !== book.id).concat([book])
+            }))
+          })
+        }
+      }
+
+      While I agree that it is much better in term of maintenance I think
+      the alternative solution UX is not as good as it is slower:
+
+      1- I prefer optimistic coding, setting the state and in case an error
+      occurs during the remote update call then handling the error (probably
+      displaying an alert box and reseting the state).
+      Is that bad practice?
+
+      2- I did not want to pass the entire book as a props everwhere
+      (if I were using Flow I would have to completely define it everywhere
+      and I didn't want to do it, even though at the end I didn't use Flow).
+      But really only 1- is my concern, the code maintenance advantage of the
+      alternative solution made me start refactoring till I discovered the
+      performance issue.
+
+  */
     const bookexist = this.state.mybooks.find(book => {
       return book.id === bookid;
     });
