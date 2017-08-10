@@ -20,8 +20,6 @@ class BookList extends Component {
             <li key={book.id}>
               <Book
                 bookid={book.id}
-                bookheight={188}
-                bookwidth={128}
                 bookimg={book.imageLinks.thumbnail}
                 title={book.title}
                 authors={book.authors}

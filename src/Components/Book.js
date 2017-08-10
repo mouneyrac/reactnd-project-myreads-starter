@@ -9,8 +9,6 @@ class Book extends Component {
   static propTypes = {
     bookid: PropTypes.string.isRequired,
     bookimg: PropTypes.string.isRequired,
-    bookwidth: PropTypes.number.isRequired,
-    bookheight: PropTypes.number.isRequired,
     currentShelf: PropTypes.string,
     title: PropTypes.string.isRequired,
     authors: PropTypes.array,
@@ -21,8 +19,6 @@ class Book extends Component {
     const {
       bookid,
       bookimg,
-      bookwidth,
-      bookheight,
       title,
       authors,
       currentShelf,
@@ -32,8 +28,6 @@ class Book extends Component {
       <div className="book">
         <BookTop
           bookid={bookid}
-          bookheight={bookheight}
-          bookwidth={bookwidth}
           bookimg={bookimg}
           currentShelf={currentShelf}
           onChangeShelf={onChangeShelf}
