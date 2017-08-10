@@ -41,7 +41,6 @@ class Search extends Component {
         // not work for some API.
         const timeout = myquerybooks.length ? 0 : 400;
         setTimeout(() => {
-          console.log(myquerybooks.length);
           this.setState({ query: query, querybooks: myquerybooks });
         }, timeout);
       });
