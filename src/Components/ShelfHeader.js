@@ -1,21 +1,15 @@
 //@flow
-import React, { Component } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import "../App.css";
 
-class ShelfHeader extends Component {
-  static propTypes = {
-    title: PropTypes.string.isRequired
-  };
+const ShelfHeader = ({ title }) =>
+  <h2 className="bookshelf-title">
+    {title}
+  </h2>;
 
-  render() {
-    const { title } = this.props;
-    return (
-      <h2 className="bookshelf-title">
-        {title}
-      </h2>
-    );
-  }
-}
+ShelfHeader.propTypes = {
+  title: PropTypes.string.isRequired
+};
 
 export default ShelfHeader;

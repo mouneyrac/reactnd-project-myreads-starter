@@ -1,23 +1,17 @@
 //@flow
-import React, { Component } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import "../App.css";
 
-class Header extends Component {
-  static propTypes = {
-    title: PropTypes.string.isRequired
-  };
+const Header = ({ title }) =>
+  <div className="list-books-title">
+    <h1>
+      {title}
+    </h1>
+  </div>;
 
-  render() {
-    const { title } = this.props;
-    return (
-      <div className="list-books-title">
-        <h1>
-          {title}
-        </h1>
-      </div>
-    );
-  }
-}
+Header.propTypes = {
+  title: PropTypes.string.isRequired
+};
 
 export default Header;

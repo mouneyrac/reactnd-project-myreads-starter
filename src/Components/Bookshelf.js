@@ -1,26 +1,20 @@
 //@flow
-import React, { Component } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import BookList from "./BookList";
 import ShelfHeader from "./ShelfHeader";
 import "../App.css";
 
-class Bookshelf extends Component {
-  static propTypes = {
-    title: PropTypes.string.isRequired,
-    books: PropTypes.array.isRequired,
-    onChangeShelf: PropTypes.func.isRequired
-  };
+const Bookshelf = ({ books, title, onChangeShelf }) =>
+  <div className="bookshelf">
+    <ShelfHeader title={title} />
+    <BookList books={books} onChangeShelf={onChangeShelf} />
+  </div>;
 
-  render() {
-    const { title, books, onChangeShelf } = this.props;
-    return (
-      <div className="bookshelf">
-        <ShelfHeader title={title} />
-        <BookList books={books} onChangeShelf={onChangeShelf} />
-      </div>
-    );
-  }
-}
+Bookshelf.propTypes = {
+  title: PropTypes.string.isRequired,
+  books: PropTypes.array.isRequired,
+  onChangeShelf: PropTypes.func.isRequired
+};
 
 export default Bookshelf;

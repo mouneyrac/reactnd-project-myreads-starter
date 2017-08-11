@@ -1,27 +1,21 @@
 //@flow
-import React, { Component } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import "../App.css";
 
-class BookDetails extends Component {
-  static propTypes = {
-    title: PropTypes.string.isRequired,
-    authors: PropTypes.array
-  };
+const BookDetails = ({ title, authors }) =>
+  <div>
+    <div className="book-title">
+      {title}
+    </div>
+    <div className="book-authors">
+      {typeof authors === "undefined" ? "" : authors.join(", ")}
+    </div>
+  </div>;
 
-  render() {
-    const { title, authors } = this.props;
-    return (
-      <div>
-        <div className="book-title">
-          {title}
-        </div>
-        <div className="book-authors">
-          {typeof authors === "undefined" ? "" : authors.join(", ")}
-        </div>
-      </div>
-    );
-  }
-}
+BookDetails.propTypes = {
+  title: PropTypes.string.isRequired,
+  authors: PropTypes.array
+};
 
 export default BookDetails;
