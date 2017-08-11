@@ -1,5 +1,6 @@
 //@flow
 import React, { Component } from "react";
+import _ from "lodash";
 import SearchBar from "./SearchBar";
 import BookList from "./BookList";
 import * as BooksAPI from "../BooksAPI";
@@ -17,7 +18,7 @@ class Search extends Component {
     querybooks: []
   };
 
-  updateQuery(query) {
+  updateQuery = _.debounce(query => {
     if (query) {
       BooksAPI.search(query).then(querybooks => {
         // If no array return empty the results.
@@ -36,8 +37,8 @@ class Search extends Component {
           return myquerybook ? myquerybook : querybook;
         });
 
-        // delay empty result as they arrive faster.
-        // still ugly, I think it works for the API but it would definitely
+        // delay empty result as they arrive faster with the BookAPI.
+        // Still ugly, I think it works for the API but it would definitely
         // not work for some API.
         const timeout = myquerybooks.length ? 0 : 400;
         setTimeout(() => {
@@ -45,7 +46,7 @@ class Search extends Component {
         }, timeout);
       });
     } else {
-      // I could not get a nice and fast UX with debounce, the UX was sugglish.
+      // I could not get a nice and fast UX with debounce only, the UX was sugglish.
       // So as I don't have too much time to find the perfect solution,
       // I decided to use an ugly trick.
       // I slow down the execution when it is an empty query.
@@ -53,7 +54,18 @@ class Search extends Component {
         this.setState({ query: "", querybooks: [] });
       }, 800);
     }
-  }
+  }, 200); // Keeping the value low as above it feels unresponsive.
+  // At the end this is a tricky problem to get perfect solution.
+  // I don't think it is the purpose of this project.
+  // Things to think about when trying to solve this issue:
+  // Test in australia when the BooksAPI take about 500 to 600ms to
+  // response. Empty result are much faster.
+  // try typing D then ick ultra fast => result should be empty
+  // try typing phil, then quickly multiple press Delete
+  // => result should be empty
+  // on mac/chrome try typing phil, then stay pressed on Delete
+  // => result should be empty (notice how the Mac make a pause on
+  // the first key deleted)
 
   render() {
     return (
